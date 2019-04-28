@@ -16,13 +16,11 @@
   <link href="noserv.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
-
 <body>
-
-<h3>Create Offers SDP</h3>
+<h3> Create Offers SDP </h3>
 <textarea id="creater-sdp"></textarea>
-<h3>Get Participants SDP<button id="start">start</button></h3>
-<textarea id="joiner-sdp" placeholder="HERE COPY AND PASTE [3.Participant'S SDP]"></textarea>
+<h3> Get Participants SDP <button id="start">start</button></h3>
+<textarea id="joiner-sdp" placeholder="copy participants SDP here"></textarea>
 <h3>Chat</h3>
 <div id="chat">
   <div id="chat-screen-wp">
@@ -44,13 +42,11 @@
 var sdpConstraints = { optional: [{RtpDataChannels: true}]  };
 var pc = new RTCPeerConnection(null);
 var dc;
-
   const canvas = window.canvas = document.querySelector('canvas');
   canvas.style.display="none";
   canvas.width = 100;
   canvas.height = 100;
   var pngUrl;
-
 pc.oniceconnectionstatechange = function(e) {
   var state = pc.iceConnectionState;
   $('#status').html(state);
@@ -60,7 +56,6 @@ pc.onicecandidate = function(e) {
   if (e.candidate) return;
   $("#creater-sdp").val(JSON.stringify(pc.localDescription));
 }
-
 function createOfferSDP() {
   dc = pc.createDataChannel("chat");
   pc.createOffer().then(function(e) {
@@ -71,13 +66,11 @@ function createOfferSDP() {
     if (e.data) addMSG(e.data, "other");
   }
 };
-
 function start() {
   var answerSDP = $('#joiner-sdp').val()
   var answerDesc = new RTCSessionDescription(JSON.parse(answerSDP));
   pc.setRemoteDescription(answerDesc);
 }
-
 var addMSG = function(msg, who) {
   var wrap = $("<div>").addClass("wrap").appendTo($("#chat-screen"));
   var div  = $("<div>").addClass(who).appendTo(wrap);
@@ -85,14 +78,10 @@ var addMSG = function(msg, who) {
   $("<span>").html(msg).addClass("msg").appendTo(div);
   $("#chat-screen-wp").scrollTop($("#chat-screen").height());
 }
-
 createOfferSDP();
-
 function sndMSG() {
-
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
   pngUrl = canvas.toDataURL();
-
   var value = pngUrl;
   if (value) {
     dc.send(value);
