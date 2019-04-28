@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta name="mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta id="theme-color" name="theme-color" content="#ffffff">
   <base target="_blank">
   <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
@@ -42,11 +42,13 @@
 var sdpConstraints = { optional: [{RtpDataChannels: true}]  };
 var pc = new RTCPeerConnection(null);
 var dc;
+
   const canvas = window.canvas = document.querySelector('canvas');
   canvas.style.display="none";
   canvas.width = 100;
   canvas.height = 100;
   var pngUrl;
+
 pc.oniceconnectionstatechange = function(e) {
   var state = pc.iceConnectionState;
   $('#status').html(state);
@@ -56,6 +58,7 @@ pc.onicecandidate = function(e) {
   if (e.candidate) return;
   $("#creater-sdp").val(JSON.stringify(pc.localDescription));
 }
+
 function createOfferSDP() {
   dc = pc.createDataChannel("chat");
   pc.createOffer().then(function(e) {
@@ -78,17 +81,22 @@ var addMSG = function(msg, who) {
   $("<span>").html(msg).addClass("msg").appendTo(div);
   $("#chat-screen-wp").scrollTop($("#chat-screen").height());
 }
+
 createOfferSDP();
+
 function sndMSG() {
+
   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
   pngUrl = canvas.toDataURL();
+
   var value = pngUrl;
   if (value) {
     dc.send(value);
     addMSG(value, "me");
     $("#msg").val('');
-    var t = setTimeout(sendMSG, 100);
+        var t = setTimeout(sendMSG, 100);
   }
+
 }
 $("#start").click(function(){start();});
 $("#msg").keypress(function(e) {if(e.which == 13) {sendMSG()}});
