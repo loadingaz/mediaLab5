@@ -34,3 +34,7 @@ Option B:
 The general requirements for option A & B.
   - Test application on at least two browsers and specify in README.md which version and browser it was.
   - To pass this lab, you have to fully complete an option.  
+  
+  
+Tested on Mozilla Firefox 65.0.1 and Google Chrome 72.0.3626.119
+You can test it your self at: https://loadingaz.github.io/src/
