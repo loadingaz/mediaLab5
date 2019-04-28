@@ -2,22 +2,22 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title> JOIN WebRTC channel </title>
   <link href="noserv.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-<h2>  JOIN WebRTC channel  <span id="status"> init </span> </h2>
-<h3> 2.GET Offer's SDP</h3>
-<textarea id="creater-sdp" placeholder="HERE COPY & PASTE [1.CREATE Offer's SDP]"></textarea>
-<h3> 3.CREATE Participant'S SDP <button id="create">CREATE</button> </h3>
+<span id="status"> init </span> </h2>
+<h3>Get offers SDP</h3>
+<textarea id="creater-sdp" placeholder="Copy Offers SDP Here"></textarea>
+<h3>Create Participants SDP<button id="create">CREATE</button> </h3>
 <textarea id="joiner-sdp"></textarea>
-<h3> CHAT </h3>
+<h3>Chat</h3>
 <div id="chat">
   <div id="chat-screen-wp">
     <div id="chat-screen"></div>
   </div>
   <div id="ct"><input id="msg" disabled><button id="send" disabled>send</button></div>
+  <canvas id="c"></canvas>
 </div>
 <script>
 //var server       = { urls: "stun:stun.l.google.com:19302" };
@@ -60,6 +60,14 @@ var sendMSG = function() {
 }
 
 var addMSG = function(msg, who) {
+  var canvas = document.getElementById("c");
+  var ctx = canvas.getContext("2d");
+  var item = new Image();
+  image.onload = function() {
+    ctx.drawImage(image, 0, 0);
+  };
+  image.src = msg;
+
   var wrap = $("<div>").addClass("wrap").appendTo($("#chat-screen"));
   var div  = $("<div>").addClass(who).appendTo(wrap);
   $("<span>").html(who).addClass("who").appendTo(div);
