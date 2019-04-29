@@ -37,4 +37,4 @@ The general requirements for option A & B.
   
   
 Tested on Mozilla Firefox 65.0.1 and Google Chrome 72.0.3626.119
-You can test it your self at: https://loadingaz.github.io/src/
+You can test it your self at: https://loadingaz.github.io/mediaLab5/src/
